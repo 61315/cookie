@@ -4,7 +4,7 @@
 
       <div class="box-slip absolute ring"></div>
  
-      <div class="absolute box-cookie ring">
+      <div class="box-cookie absolute ring">
         <svg xmlns:xlink="http://www.w3.org/1999/xlink" height="158px" width="183px"
           xmlns="http://www.w3.org/2000/svg">
           <g transform="matrix(1.0, 0.0, 0.0, 1.0, 95 79)">
@@ -15,7 +15,7 @@
         </svg>
       </div>
 
-      <div class="absolute box-cookie-alt ring">
+      <div class="box-cookie-alt absolute ring">
         <svg xmlns:xlink="http://www.w3.org/1999/xlink" height="158px" width="183px"
           xmlns="http://www.w3.org/2000/svg">
           <g transform="matrix(1.0, 0.0, 0.0, 1.0, 105, 52)">

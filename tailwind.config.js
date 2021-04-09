@@ -1,4 +1,5 @@
 module.exports = {
+  mode: 'jit',
   purge: [
     './index.html',
     './public/**/*.html',
@@ -6,15 +7,7 @@ module.exports = {
   ],
   darkMode: false,
   theme: {
-    extend: {
-      backgroundImage: theme => ({
-        'pattern': "url(require('./src/assets/images/image_bg.gif'))",
-        'container': "url('./src/assets/images/image_container.png')",
-        'cookie': "url('./src/assets/images/image_cookie.png')",
-        'cookie-alt': "url('./src/assets/images/image_cookie_alt.png')",
-        'slip': "url('./src/assets/images/image_slip.png')",
-       }),
-    },
+    extend: {},
   },
   variants: {
     extend: {},
