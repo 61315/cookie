@@ -2,3 +2,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+    background-image: 
+        url('./assets/images/image_cookie_alt.png'),
+        url('./assets/images/image_slip.png'),
+        url('./assets/images/image_cookie.png'),
+        url('./assets/texts/text_intro.svg');
+    background-size: 0;
+}
