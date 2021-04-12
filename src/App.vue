@@ -9,11 +9,11 @@ import Cookie from './components/Cookie.vue'
 <style>
 
 #app {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: NotoSerifKR-Light, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #565433;
   background-image: url('./assets/images/image_bg.gif');
 }
 </style>

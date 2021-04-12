@@ -32,11 +32,18 @@
         </svg>
       </div>
 
-      <div class="box-slip absolute ring" v-if="state.isOpen"></div>
+      
+      <div class="box-slip-alt absolute ring flex" v-if="state.isOpen">
+        <img id="asd" class="absolute pointer-events-none" src="../assets/morphshapes/morphshape_slip.svg" />
+        <p class="text-xl ring w-full mx-4 mt-12 mb-8 transform scale-y-90 tracking-tighter break-words leading-none self-center transition-opacity duration-500"
+        :class="[ state.isFinish ? 'opacity-100' : 'opacity-0' ]">
+          나만 없어. <br>진짜 사람들 고양이 다 있고 나만 없어.
+        </p>
+      </div>
 
       <div class="box-intro absolute ring transition-opacity duration-500" :class="[ state.isActive ? 'opacity-100' : 'opacity-0' ]" />
 
-      <div class="box-footer absolute ring" />
+      <div class="box-footer absolute ring" /> 
 
     </div>
 
@@ -55,7 +62,7 @@ defineProps({
   msg: String,
 });
 
-const state = reactive({ count: 0, isActive: false, isCracked: false, isOpen: false });
+const state = reactive({ count: 0, isActive: false, isCracked: false, isOpen: false, isFinish: false });
 
 const activate = () => {
   state.isActive = true;
@@ -80,6 +87,14 @@ const crack = () => {
 
 const open = () => {
   state.isOpen = true;
+  setTimeout(() => state.isFinish = true, 750);
+}
+
+const play = () => {
+  var elements = document.getElementsByTagName("animate");
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].beginElement();
+  }
 }
 
 </script>
@@ -121,6 +136,12 @@ div .box-slip {
   height: 163px;
   top: 72px;
   background-image: url('../assets/images/image_slip.png');
+}
+
+div .box-slip-alt {
+  width: 398px;
+  height: 163px;
+  top: 72px;
 }
 
 div .box-intro {

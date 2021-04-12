@@ -2,7 +2,8 @@
 
 ## Screenshot
 
-![Screenshot](screenshot.png?raw=true)
+![Preview](preview.gif?raw=true)
+
 
 ## Live Preview
 

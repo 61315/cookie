@@ -8,6 +8,13 @@ html {
         url('./assets/images/image_cookie_alt.png'),
         url('./assets/images/image_slip.png'),
         url('./assets/images/image_cookie.png'),
-        url('./assets/texts/text_intro.svg');
+        url('./assets/texts/text_intro.svg'),
+        url('./assets/morphshapes/morphshape_slip.svg');
     background-size: 0;
+}
+
+@font-face {
+    font-family: 'NotoSerifKR-Light';
+    font-style: normal;
+    src: url('./assets/NotoSerifKR-Light.woff2') format("woff2");
 }
