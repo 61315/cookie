@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen">
-    <div class="box-container flex justify-center relative transition duration-500" :class="{ 'filter blur-sm' : !state.isActive }">
-
+  <div class="min-h-screen" @click="play">
+    
+    <div class="box-container flex justify-center relative transition duration-500" :class="{ 'filter blur-sm' : !state.isActive }" >
       <div class="box-cookie absolute ring transition-opacity duration-500" :class="[ state.isActive ? 'opacity-100' : 'opacity-0' ]" v-if="!state.isCracked">
         <svg xmlns:xlink="http://www.w3.org/1999/xlink" height="158px" width="183px"
           xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +17,7 @@
         <svg xmlns:xlink="http://www.w3.org/1999/xlink" height="158px" width="183px"
           xmlns="http://www.w3.org/2000/svg">
           <g transform="matrix(1.0, 0.0, 0.0, 1.0, 105, 52)">
-            <path class="cursor-pointer opacity-0 hover:opacity-100" @click="open"
+            <path class="cursor-pointer opacity-100 sm:opacity-0 sm:hover:opacity-100 animate-ping sm:animate-none" @click="open"
               d="M23.95 -1.9 Q24.9 2.4 25.75 9.0 -6.15 6.3 -27.65 16.4 L-28.85 14.05 -27.75 11.15 -30.05 6.95 -33.95 5.65 -35.05 4.05 -34.05 2.45 -34.0 -1.05 -31.8 -1.1 -31.1 -3.1 -28.15 -2.85 -26.9 -5.65 -24.6 -7.45 -23.35 -9.25 Q-4.35 -13.65 11.15 -14.7 18.45 -15.05 23.1 -14.75 22.95 -6.25 23.95 -1.9"
               fill="url(#gradient0)" fill-rule="evenodd" stroke="none" />
           </g>
@@ -31,10 +31,9 @@
           </defs>
         </svg>
       </div>
-
       
-      <div class="box-slip-alt absolute ring flex" v-if="state.isOpen">
-        <img id="asd" class="absolute pointer-events-none" src="../assets/morphshapes/morphshape_slip.svg" />
+      <div class="box-slip absolute ring flex" v-if="state.isOpen">
+        <object data="src/assets/morphshapes/morphshape_slip.svg" type="image/svg+xml" id="slip" class="absolute ring" />
         <p class="text-xl ring w-full mx-4 mt-12 mb-8 transform scale-y-90 tracking-tighter break-words leading-none self-center transition-opacity duration-500"
         :class="[ state.isFinish ? 'opacity-100' : 'opacity-0' ]">
           나만 없어. <br>진짜 사람들 고양이 다 있고 나만 없어.
@@ -48,15 +47,16 @@
     </div>
 
     <div class="box-start absolute ring transition-opacity" :class="{ 'opacity-0' : state.isActive }"/>
-    <div class="box-start absolute ring cursor-pointer" :class="{ 'animate-ping' : !state.isActive }" v-if="!state.isActive" @click="activate"/>
-    
+    <div class="box-start absolute ring cursor-pointer" :class="{ 'animate-ping' : !state.isActive }" v-if="!state.isActive" @click="activate" />
+        
   </div>
 </template>
 
 <script setup>
 import { defineProps, reactive } from "vue";
-import sound_bgs from "../assets/sounds/bgs.mp3";
-import sound_crack from "../assets/sounds/crack.mp3";
+import sound_bgs from "../assets/sounds/sound_bgs.mp3";
+import sound_crack from "../assets/sounds/sound_crack.mp3";
+
 
 defineProps({
   msg: String,
@@ -71,8 +71,10 @@ const activate = () => {
   audio.loop = true;
   
   audio.addEventListener("canplaythrough", () => { 
-        audio.play();
+    audio.play();
   });
+
+  audio.load();
 }
 
 const crack = () => {
@@ -81,20 +83,18 @@ const crack = () => {
   let audio = new Audio(sound_crack);
   
   audio.addEventListener("canplaythrough", () => { 
-        audio.play();
+    audio.play();
   });
+
+  audio.load();
 }
 
 const open = () => {
   state.isOpen = true;
-  setTimeout(() => state.isFinish = true, 750);
-}
 
-const play = () => {
-  var elements = document.getElementsByTagName("animate");
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].beginElement();
-  }
+  setTimeout(() => {
+    state.isFinish = true;
+  }, 750);
 }
 
 </script>
@@ -132,13 +132,6 @@ div .box-cookie-alt {
 }
 
 div .box-slip {
-  width: 398px;
-  height: 163px;
-  top: 72px;
-  background-image: url('../assets/images/image_slip.png');
-}
-
-div .box-slip-alt {
   width: 398px;
   height: 163px;
   top: 72px;
