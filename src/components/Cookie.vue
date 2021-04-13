@@ -1,8 +1,12 @@
 <template>
   <div class="min-h-screen" @click="play">
-    
     <div class="box-container flex justify-center relative transition duration-500" :class="{ 'filter blur-sm' : !state.isActive }" >
-      <div class="box-cookie absolute ring transition-opacity duration-500" :class="[ state.isActive ? 'opacity-100' : 'opacity-0' ]" v-if="!state.isCracked">
+      <label class="absolute right-0 m-4">
+        <input type="checkbox" class="form-checkbox" v-model="state.showBounds">
+        <span class="ml-2 text-sm font-sans text-white">Show Bounds</span>
+      </label>
+      <div class="box-cookie absolute transition-opacity duration-500"
+      :class="[ state.isActive ? 'opacity-100' : 'opacity-0', { 'ring' : state.showBounds } ]" v-if="!state.isCracked">
         <svg xmlns:xlink="http://www.w3.org/1999/xlink" height="158px" width="183px"
           xmlns="http://www.w3.org/2000/svg">
           <g transform="matrix(1.0, 0.0, 0.0, 1.0, 95 79)">
@@ -13,7 +17,7 @@
         </svg>
       </div>
 
-      <div class="box-cookie-alt absolute ring" v-if="state.isCracked">
+      <div class="box-cookie-alt absolute" v-if="state.isCracked" :class="{ 'ring' : state.showBounds }">
         <svg xmlns:xlink="http://www.w3.org/1999/xlink" height="158px" width="183px"
           xmlns="http://www.w3.org/2000/svg">
           <g transform="matrix(1.0, 0.0, 0.0, 1.0, 105, 52)">
@@ -32,22 +36,22 @@
         </svg>
       </div>
       
-      <div class="box-slip absolute ring flex" v-if="state.isOpen">
-        <object data="src/assets/morphshapes/morphshape_slip.svg" type="image/svg+xml" id="slip" class="absolute ring" />
-        <p class="text-xl ring w-full mx-4 mt-12 mb-8 transform scale-y-90 tracking-tighter break-words leading-none self-center transition-opacity duration-500"
-        :class="[ state.isFinish ? 'opacity-100' : 'opacity-0' ]">
-          나만 없어. <br>진짜 사람들 고양이 다 있고 나만 없어.
+      <div class="box-slip absolute flex" v-if="state.isOpen" :class="{ 'ring' : state.showBounds }">
+        <object data="src/assets/morphshapes/morphshape_slip.svg" type="image/svg+xml" id="slip" class="absolute" />
+        <p class="whitespace-pre-wrap text-xl w-full mx-4 mt-12 mb-8 transform scale-y-90 tracking-tighter break-words leading-none self-center transition-opacity duration-500"
+        :class="[ state.isFinish ? 'opacity-100' : 'opacity-0', { 'ring' : state.showBounds } ]">
+          {{ message }}
         </p>
       </div>
 
-      <div class="box-intro absolute ring transition-opacity duration-500" :class="[ state.isActive ? 'opacity-100' : 'opacity-0' ]" />
+      <div class="box-intro absolute transition-opacity duration-500" :class="[ state.isActive ? 'opacity-100' : 'opacity-0', { 'ring' : state.showBounds } ]" />
 
-      <div class="box-footer absolute ring" /> 
+      <div class="box-footer absolute" :class="{ 'ring' : state.showBounds }" /> 
 
     </div>
 
-    <div class="box-start absolute ring transition-opacity" :class="{ 'opacity-0' : state.isActive }"/>
-    <div class="box-start absolute ring cursor-pointer" :class="{ 'animate-ping' : !state.isActive }" v-if="!state.isActive" @click="activate" />
+    <div class="box-start absolute transition-opacity" :class="{ 'opacity-0' : state.isActive, 'ring' : state.showBounds }"/>
+    <div class="box-start absolute cursor-pointer" :class="{ 'animate-ping' : !state.isActive, 'ring' : state.showBounds }" v-if="!state.isActive" @click="activate" />
         
   </div>
 </template>
@@ -57,12 +61,17 @@ import { defineProps, reactive } from "vue";
 import sound_bgs from "../assets/sounds/sound_bgs.mp3";
 import sound_crack from "../assets/sounds/sound_crack.mp3";
 
-
 defineProps({
   msg: String,
 });
 
-const state = reactive({ count: 0, isActive: false, isCracked: false, isOpen: false, isFinish: false });
+const state = reactive({ count: 0, showBounds: false, isActive: false, isCracked: false, isOpen: false, isFinish: false });
+
+const txt1 = `나만 없어. \n진짜 사람들 고양이 다 있고 나만 없어.`;
+
+const txt2 = `키스의 고유 조건은 입술끼리 만나야 하고 \n특별한 기술은 필요치 않다.`;
+
+const message = Math.random() < 0.3 ? txt1 : txt2;
 
 const activate = () => {
   state.isActive = true;
