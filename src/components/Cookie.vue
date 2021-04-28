@@ -37,10 +37,10 @@
       </div>
       
       <div class="box-slip absolute flex" v-if="state.isOpen" :class="{ 'ring' : state.showBounds }">
-        <object data="src/assets/morphshapes/morphshape_slip.svg" type="image/svg+xml" id="slip" class="absolute" />
+        <object :data="morphshape_slip" type="image/svg+xml" id="slip" class="absolute" />
         <p class="whitespace-pre-wrap text-xl w-full mx-4 mt-12 mb-8 transform scale-y-90 tracking-tighter break-words leading-none self-center transition-opacity duration-500"
         :class="[ state.isFinish ? 'opacity-100' : 'opacity-0', { 'ring' : state.showBounds } ]">
-          {{ message }}
+          {{ state.message }}
         </p>
       </div>
 
@@ -60,18 +60,10 @@
 import { defineProps, reactive } from "vue";
 import sound_bgs from "../assets/sounds/sound_bgs.mp3";
 import sound_crack from "../assets/sounds/sound_crack.mp3";
+import morphshape_slip from "../assets/morphshapes/morphshape_slip.svg";
+import messages from "../assets/messages/message.json";
 
-defineProps({
-  msg: String,
-});
-
-const state = reactive({ count: 0, showBounds: false, isActive: false, isCracked: false, isOpen: false, isFinish: false });
-
-const txt1 = `나만 없어. \n진짜 사람들 고양이 다 있고 나만 없어.`;
-
-const txt2 = `키스의 고유 조건은 입술끼리 만나야 하고 \n특별한 기술은 필요치 않다.`;
-
-const message = Math.random() < 0.3 ? txt1 : txt2;
+const state = reactive({ count: 0, showBounds: false, isActive: false, isCracked: false, isOpen: false, isFinish: false, message: "" });
 
 const activate = () => {
   state.isActive = true;
@@ -96,6 +88,8 @@ const crack = () => {
   });
 
   audio.load();
+
+  getMessage();
 }
 
 const open = () => {
@@ -104,6 +98,13 @@ const open = () => {
   setTimeout(() => {
     state.isFinish = true;
   }, 750);
+}
+
+const getMessage = () => {
+  let length = Object.keys(messages).length;
+  let index = Math.floor(Math.random() * length);
+  
+  state.message = messages[index];
 }
 
 </script>

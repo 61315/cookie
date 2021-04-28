@@ -1,5 +1,5 @@
 <template>
-  <Cookie msg="Hello World!" />
+  <Cookie />
 </template>
 
 <script setup>
